@@ -1,4 +1,5 @@
 /******************************************************************************
+
  * Student Name    : Katies Truong
  * RMIT Student ID : s36701053
  * COURSE CODE     : CPT220
@@ -8,7 +9,10 @@
  *****************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "gomoku.h"
+ 
+int menu();
 /**
  * The main function - the main entry point into your program
  **/
@@ -18,22 +22,11 @@ int main(void)
          * get started. You should start by getting a menu working that behaves
          * the same as the sample executable. 
          */
-         /* initialise the options. Use magic number for debugging purposes, will remove
-         later in development.*/
-         char options = '1';
-         /* do while loop for main menu */
-        
-         printf("Welcome to Gomoku\n");
-         printf("================\n");
-         printf("1) Play the game\n");
-         printf("2) Quit the game\n");
-         if(options == '1')
-            printf("Success!\n");
-         else if(options == '2')
-            printf("Quitting...\n");
-         else
-            printf("Invalid choice. Please choose again.\n");
-        /* initialise the scoreboard to an empty scoreboard */
+        /* normal_print("Choose player one's name:%s \n", player_name); */
+        /* normal_print("Choose player two's name: %s\n ", player_name); */
+        /* Initialise main menu */
+        menu();
+        /* display_board(init_board(board)); */
         /* initialise the random number generator for your program */
         /* display the menu continuously until the user decided to quit the
          * program
@@ -45,3 +38,4 @@ int main(void)
                                 /* quit the program */
         return EXIT_SUCCESS;
 }
+

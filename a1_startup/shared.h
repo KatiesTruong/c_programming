@@ -18,7 +18,7 @@
  **/
 typedef enum
 {
-        FALSE,
-        TRUE
+        FALSE = 0,
+        TRUE = 1
 } BOOLEAN;
 #endif /* end of include guard for shared.h */

@@ -21,7 +21,10 @@
 enum input_result init_player(struct player* curplayer, enum cell token,
                               struct game* thegame, int playernum)
 {
-
+    char first_player;
+    char second_player;
+    normal_print("Enter first player's name: %s\n", first_player);
+    normal_print("Enter second player's name: %s\n", second_player);
         return IR_FAILURE;
 }
 

@@ -1,7 +1,7 @@
 /******************************************************************************
- * Student Name    :
- * RMIT Student ID :
- * COURSE CODE     :
+ * Student Name    : Katies Truong
+ * RMIT Student ID : s3671053
+ * COURSE CODE     : CPT220
  *
  * Startup code provided by Paul Miller for use in "Programming in C",
  * study period 2, 2018.
@@ -22,8 +22,14 @@
  * also ensure the board is coorectly initialised through a call to
  * init_board().
  **/
-enum input_result init_game(struct game* newgame, struct player players[])
+enum input_result init_game(struct game* newgame)
 {
+    char first_player;
+    char second_player;
+    srand();
+    srand();
+    init_player(first_player, rand(red, white), 1);
+    init_player(second_player, rand(red,white), 2);
         return IR_FAILURE;
 }
 
@@ -39,8 +45,6 @@ void play_game(void)
         /* init the game struct */
         /* the main game loop */
         /* swap the game pointers */
-        /* return the winner */
-        return NULL;
 }
 
 /**

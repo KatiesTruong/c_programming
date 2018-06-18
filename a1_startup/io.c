@@ -74,3 +74,27 @@ int normal_print(const char* format, ...)
         va_end(argvec);
         return charsprinted;
 }
+
+/* Displays board */
+void display_board(board curr_board)
+{
+    int y_axis, x_axis, row;
+    /* We display one row of the game board*/
+    for(row = 0; row < 1; row++)
+    {
+        /* loops the horizontal numbers*/
+        /* Note that BOARDHEIGHT here is a constant with 15*/
+        for(x_axis = 1; x_axis <= BOARDHEIGHT; x_axis++)
+        {
+            normal_print("%d | \n", x_axis);
+        }
+        normal_print("\n");
+        /* loops the vertical numbers*/
+        for(y_axis = 1; y_axis <= BOARDHEIGHT; y_axis++)
+        {
+            normal_print("-----------");
+            normal_print("%d| \n", y_axis);
+        }
+        normal_print("\n");
+    }
+}

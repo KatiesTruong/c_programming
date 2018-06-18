@@ -50,7 +50,7 @@ enum input_result
 #define DECIMAL 10
 
 /* the number of menu items in the main menu */
-#define NUM_MENU_ITEMS 3
+#define NUM_MENU_ITEMS 2
 
 /* colour constants - these are used for turning on and off the red and white
  * colours for displaying the game board. REDCOLOR sets the current colour to
