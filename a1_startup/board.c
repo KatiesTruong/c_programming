@@ -17,13 +17,59 @@
  * initialise the board to be an empty board
  **/
 void init_board(board aboard) {
-    int current_board[BOARDHEIGHT][BOARDWIDTH] = {
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
+    int board[BOARDHEIGHT][BOARDWIDTH] = {
         {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
          C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY}};
 }
 
+/* Displays board */
+void display_board(board aboard) {
+    int row;
+    int y_axis, x_axis;
+    /* Sample tokens, change later to C_EMPTY*/
+    char tokens[] = " ";
+    /* For loop row plays once */
+    for (row = 0; row < 1; row++) {
+        /* Remove 0 with conditional statement and replace with
+        "  |"*/
+        printf("  |");
+        /* loop for horizontal row */
+        /* Note that BOARDHEIGHT is constant 15*/
+        for (x_axis = 1; x_axis <= BOARDHEIGHT; x_axis++) {
+            if (x_axis != 0 && x_axis > 9) {
+                printf("%d |", x_axis);
+            } else if (x_axis < 9) {
+                printf(" %d |", x_axis);
+            }
+        }
+        printf("\n");
+        /* loop for vertical row*/
+        for (y_axis = 1; y_axis <= BOARDHEIGHT; y_axis++) {
+            if (y_axis < 9) {
+                printf(
+                    "----------------------------------------------------------"
+                    "-\n");
+                printf(
+                    "%d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                    "| %s | %s | %s |\n",
+                    y_axis, tokens, tokens, tokens, tokens, tokens, tokens,
+                    tokens, tokens, tokens, tokens, tokens, tokens, tokens,
+                    tokens);
+            } else if (y_axis > 9) {
+                printf(
+                    "----------------------------------------------------------"
+                    "-\n");
+                printf(
+                    "%d| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                    "| %s | %s | %s |\n",
+                    y_axis, tokens, tokens, tokens, tokens, tokens, tokens,
+                    tokens, tokens, tokens, tokens, tokens, tokens, tokens,
+                    tokens);
+            }
+        }
+        printf("\n");
+    }
+}
 /* Prints board to the screen */
 /*void display_board(int board[BOARDHEIGHT][BOARDWIDTH])
 {

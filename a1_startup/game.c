@@ -7,6 +7,8 @@
  * study period 2, 2018.
  *****************************************************************************/
 #include "game.h"
+#include <time.h>
+#include "io.h"
 
 /**
  * this file contains the implementation of functions for the management of the
@@ -22,15 +24,16 @@
  * also ensure the board is coorectly initialised through a call to
  * init_board().
  **/
-enum input_result init_game(struct game* newgame)
-{
-    char first_player;
-    char second_player;
-    srand();
-    srand();
-    init_player(first_player, rand(red, white), 1);
-    init_player(second_player, rand(red,white), 2);
-        return IR_FAILURE;
+enum input_result init_game(struct game* newgame) {
+    /*game_tokens[];*/
+    players[2];
+
+    srand(time(NULL));
+    game_tokens = init_player(struct player(first_player), rand(C_RED, C_WHITE),
+                              struct game(), 1);
+    init_player(struct player(second_player), rand(C_RED, C_WHITE),
+                struct_game(), 2);
+    return IR_FAILURE;
 }
 
 /**
@@ -38,13 +41,12 @@ enum input_result init_game(struct game* newgame)
  * then loops and calls take_turn for the current player and swaps players until
  * a player has won the game
  **/
-void play_game(void)
-{
-        /* the game struct that holds the data on the game state */
-        struct game curgame;
-        /* init the game struct */
-        /* the main game loop */
-        /* swap the game pointers */
+void play_game(void) {
+    /* the game struct that holds the data on the game state */
+    struct game curgame;
+    /* init the game struct */
+    /* the main game loop */
+    /* swap the game pointers */
 }
 
 /**
@@ -55,16 +57,11 @@ void play_game(void)
  * content understanding is very important and thus it is worth substantially
  * more than a few lines of code are worth elsewhere in this assignment.
  **/
-void swap_players(struct player** first, struct player** second)
-{
-}
+void swap_players(struct player** first, struct player** second) {}
 
 /**
  * implements the rules for the first round of the game, the so-called
  * swap2 rules. Please see the assignment specification and game rules for
  * further details.
  **/
-enum input_result first_round(struct game* thegame)
-{
-        return IR_FAILURE;
-}
+enum input_result first_round(struct game* thegame) { return IR_FAILURE; }

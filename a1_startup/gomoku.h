@@ -25,7 +25,7 @@
  /* Create menu function */
 int menu()
 {
-         int check = FALSE;
+         BOOLEAN check = FALSE;
          char play[] = "1";
          char quit[] = "2";
          char text_input[INPUTLIMIT+EXTRACHARS];
@@ -45,31 +45,29 @@ int menu()
                 error_print("Input line is too long\n");
                 read_rest_of_line();
             }
-            else if(strstr(text_input, quit) != NULL)
-            {
-                normal_print("Quitting\n");
-                check = FALSE;
-                return 0;
-            }
-            else if(strstr(text_input, play) != NULL)
-            {
-                normal_print("Continue...\n");
-                check = TRUE;
-            }
-            else if(text_input == NULL)
-            {
-                error_print("Invalid input.\n");
-                continue;
-            }
             else
             {
                 text_input[strlen(text_input) - 1] = '\0';
                 check = TRUE;
             }
 
-            /* Input validation for quitting or entering
-            single chars*/
-           
+            /* Input validation for quitting or playing*/
+            if(strstr(text_input, play) != NULL)
+            {
+                normal_print("Continue...\n");
+                check = TRUE;
+            }
+            else if(strstr(text_input, quit) != NULL)
+            {
+                normal_print("Quitting...\n"); 
+                check = FALSE;
+                return 0;
+            }
+            else
+            {
+                error_print("Invalid input.\n");
+                continue;
+            }
             /* checks if string compare are the same as play which is 1*/
          } while(!check);
          normal_print("Please enter player 1's name: \n");
