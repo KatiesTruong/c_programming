@@ -17,7 +17,7 @@
 
 /**
  * The values for the various game tokens as strings. These are in the same
- * order as the cell enumeration. In other works the 0th element is for empty,
+ * order as the cell enumeration. In other words the 0th element is for empty,
  * the first is red and the second is white. The NULL pointer on the end is for
  * the C_INVALID constant
  **/
@@ -72,3 +72,55 @@ int normal_print(const char* format, ...) {
 }
 
 /* Displays board */
+/* Needs to display when tokens are inserted */
+void display_board(board aboard) {
+    int row;
+    int y_axis, x_axis;
+    /* Sample tokens, change later to C_EMPTY*/
+    /*char tokens[] = " ";*/
+    /* For loop row plays once */
+    for (row = 0; row < 1; row++) {
+        /* Remove 0 with conditional statement and replace with
+        "  |"*/
+        printf("  |");
+        /* loop for horizontal row */
+        /* Note that BOARDHEIGHT is constant 15*/
+        for (x_axis = 1; x_axis <= BOARDHEIGHT; x_axis++) {
+            if (x_axis != 0 && x_axis > 9) {
+                printf("%d |", x_axis);
+            } else if (x_axis < 9) {
+                printf(" %d |", x_axis);
+            }
+        }
+        printf("\n");
+        /* loop for vertical row and cells*/
+        for (y_axis = 1; y_axis <= BOARDHEIGHT; y_axis++) {
+            if (y_axis < 9) {
+                printf(
+                    "----------------------------------------------------------"
+                    "-\n");
+                /* Note that game_tokens[0] refers to C_EMPTY or " "*/
+                printf(
+                    "%d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                    "| %s | %s | %s |\n",
+                    y_axis, game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0]);
+            } else if (y_axis > 9) {
+                printf(
+                    "----------------------------------------------------------"
+                    "-\n");
+                printf(
+                    "%d| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                    "| %s | %s | %s |\n",
+                    y_axis, game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0], game_tokens[0],
+                    game_tokens[0], game_tokens[0]);
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
 /******************************************************************************
 
+
  * Student Name    : Katies Truong
  * RMIT Student ID : s36701053
  * COURSE CODE     : CPT220
@@ -21,12 +22,10 @@ int main(void) {
      * get started. You should start by getting a menu working that behaves
      * the same as the sample executable.
      */
-    enum cell board[BOARDHEIGHT][BOARDWIDTH];
+    /* enum cell board[BOARDHEIGHT][BOARDWIDTH]; */
     /* Initialise main menu */
     menu();
-    init_board(board);
-    display_board(board);
-    /* display_board(init_board(board)); */
+    /* display_board(board);*/
     /* initialise the random number generator for your program */
     /* display the menu continuously until the user decided to quit the
      * program
