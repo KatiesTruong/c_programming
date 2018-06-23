@@ -1,13 +1,14 @@
 /******************************************************************************
- * Student Name    :
- * RMIT Student ID :
- * COURSE CODE     :
+ * Student Name    : Katies Truong
+ * RMIT Student ID : s3671053
+ * COURSE CODE     : CPT220
  *
  * Startup code provided by Paul Miller for use in "Programming in C",
  * study period 2, 2018.
  *****************************************************************************/
 #include "player.h"
 #include "game.h"
+#include "io.h"
 
 /**
  * this file contains the implementation of the functions for manipulation of
@@ -24,18 +25,21 @@
  */
 enum input_result init_player(struct player* curplayer, enum cell token,
                               struct game* thegame, int playernum) {
-    /* ATTENTION: Fix problem with double prompts of player names */
     char name[NAMELEN + EXTRACHARS];
     /* Initialise the player */
-    /* Prompts for player's name */
-    normal_print("Enter first player's name: ");
-    fgets(curplayer->name, NAMELEN + EXTRACHARS, stdin);
-    strcpy(curplayer->name, name);
-    normal_print("Enter second player's name: ", curplayer->name);
-    fgets(curplayer->name, NAMELEN + EXTRACHARS, stdin);
+    /* Prompts for player 1 and 2's name, since curplayer->name points to
+     * 2 players, we use the playernum to identify each player.*/
+    normal_print("Enter player %d's name: ", playernum);
+    fgets(name, NAMELEN + EXTRACHARS, stdin);
     strcpy(curplayer->name, name);
     /* Prints out the current player's name's turn */
-    /* use strcpy for the element to name[] */
+    if (curplayer->token == C_WHITE) {
+        name[strlen(name) - 1] = '\0';
+        normal_print("%s plays first.\n", name);
+    } else if(curplayer->token == C_RED) {
+        name[strlen(name) - 1] = '\0';
+        normal_print("%s plays first.\n", name);
+    }
     return IR_FAILURE;
 }
 

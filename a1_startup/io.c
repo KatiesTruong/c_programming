@@ -8,18 +8,20 @@
  *****************************************************************************/
 #include "io.h"
 #include <limits.h>
+#include <string.h>
+#include "player.h"
 
 /**
  * this file has the implementation functions for input / output. All ouput
- * should happen from this module so that it would be easy to rewrite output to
- * another format, such as a gui application.
+ * should happen from this module so that it would be easy to rewrite output
+ *to another format, such as a gui application.
  **/
 
 /**
  * The values for the various game tokens as strings. These are in the same
- * order as the cell enumeration. In other words the 0th element is for empty,
- * the first is red and the second is white. The NULL pointer on the end is for
- * the C_INVALID constant
+ * order as the cell enumeration. In other words the 0th element is for
+ *empty, the first is red and the second is white. The NULL pointer on the
+ *end is for the C_INVALID constant
  **/
 const char* game_tokens[NUM_TOKEN_TYPES] = {" ", REDCOLOR "o" RESETCOLOR,
                                             WHITECOLOR "o" RESETCOLOR, NULL};
@@ -36,6 +38,13 @@ void read_rest_of_line(void) {
         ;
     /* clear the error status on the stdin FILE pointer */
     clearerr(stdin);
+}
+
+/* Removes new line that has \n during buffer when fgets() receives a string */
+/*ATTENTION FIX */
+void remove_newline(char line[]) {
+    char end[NAMELEN + EXTRACHARS];
+    end[strlen(end) - 1] = '\0';
 }
 
 /**
@@ -71,56 +80,67 @@ int normal_print(const char* format, ...) {
     return charsprinted;
 }
 
+/* Function that initialises the board's header row */
+void board_header() {
+    int row;
+    /* Remove 0 with conditional statement and replace with "  |" */
+    /* Note that BOARDHEIGHT is constant 15 */
+    normal_print("  |");
+    for (row = 1; row <= BOARDHEIGHT; row++) {
+        if (row != 0 && row > 9) {
+            normal_print("%d |", row);
+        } else if (row < 9) {
+            normal_print(" %d |", row);
+        }
+    }
+    normal_print("\n");
+}
+
+/* Function for iterating the lines and cells in an empty board */
+void board_cell_loop() {
+    int row;
+    /* int tokens; */
+
+    /* Loops for cells and lines*/
+    for (row = 15; row >= 1; row -= 1) {
+        if (row < 9) {
+            normal_print(
+                "----------------------------------------------------------"
+                "-\n");
+            /* Note that game_tokens[0] refers to C_EMPTY or " "*/
+            normal_print(
+                "%d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                "| %s | %s | %s |\n",
+                row, game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0]);
+        } else if (row > 9) {
+            normal_print(
+                "----------------------------------------------------------"
+                "-\n");
+            normal_print(
+                "%d| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
+                "| %s | %s | %s |\n",
+                row, game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0], game_tokens[0],
+                game_tokens[0], game_tokens[0], game_tokens[0]);
+        }
+    }
+}
+
 /* Displays board */
 /* Needs to display when tokens are inserted */
 void display_board(board aboard) {
     int row;
-    int y_axis, x_axis;
     /* Sample tokens, change later to C_EMPTY*/
     /*char tokens[] = " ";*/
     /* For loop row plays once */
     for (row = 0; row < 1; row++) {
-        /* Remove 0 with conditional statement and replace with
-        "  |"*/
-        printf("  |");
-        /* loop for horizontal row */
-        /* Note that BOARDHEIGHT is constant 15*/
-        for (x_axis = 1; x_axis <= BOARDHEIGHT; x_axis++) {
-            if (x_axis != 0 && x_axis > 9) {
-                printf("%d |", x_axis);
-            } else if (x_axis < 9) {
-                printf(" %d |", x_axis);
-            }
-        }
-        printf("\n");
-        /* loop for vertical row and cells*/
-        for (y_axis = 1; y_axis <= BOARDHEIGHT; y_axis++) {
-            if (y_axis < 9) {
-                printf(
-                    "----------------------------------------------------------"
-                    "-\n");
-                /* Note that game_tokens[0] refers to C_EMPTY or " "*/
-                printf(
-                    "%d | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
-                    "| %s | %s | %s |\n",
-                    y_axis, game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0]);
-            } else if (y_axis > 9) {
-                printf(
-                    "----------------------------------------------------------"
-                    "-\n");
-                printf(
-                    "%d| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s "
-                    "| %s | %s | %s |\n",
-                    y_axis, game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0], game_tokens[0],
-                    game_tokens[0], game_tokens[0]);
-            }
-        }
+        /* Calls the board header */
+        board_header();
+        /* calls for board cell loop */
+        board_cell_loop();
     }
 }

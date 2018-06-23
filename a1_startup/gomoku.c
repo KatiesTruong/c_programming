@@ -25,7 +25,6 @@ int main(void) {
     /* enum cell board[BOARDHEIGHT][BOARDWIDTH]; */
     /* Initialise main menu */
     menu();
-    /* display_board(board);*/
     /* initialise the random number generator for your program */
     /* display the menu continuously until the user decided to quit the
      * program

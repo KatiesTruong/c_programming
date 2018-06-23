@@ -25,9 +25,12 @@
  * init_board().
  **/
 enum input_result init_game(struct game* newgame) {
+    /* We seed the random number to the UNIX time for rand() to randomise the
+     * NUM_PLAYERS(2) between player 1 and 2.*/
     srand(time(NULL));
     /* when number player is randomised as first player(which is 0). Then
      * we set the first init_player to have the white token(which is 1).*/
+    /*initialising each player, placed C_WHITE and C_RED for now */
     if (rand() % NUM_PLAYERS == 0) {
         newgame->current = &newgame->players[1];
         newgame->other = &newgame->players[2];
@@ -35,13 +38,12 @@ enum input_result init_game(struct game* newgame) {
         newgame->current = &newgame->players[2];
         newgame->other = &newgame->players[1];
     }
-    /*initialising each player, placed C_WHITE and C_RED for now */
     /* newgame->players->token;*/
-    newgame->current->token = C_RED;
-    newgame->other->token = C_WHITE;
+    newgame->current->token = C_WHITE;
+    newgame->other->token = C_RED;
 
-    init_player(newgame->current, C_RED, newgame, 1);
-    init_player(newgame->other, C_WHITE, newgame, 2);
+    init_player(newgame->current, C_WHITE, newgame, 1);
+    init_player(newgame->other, C_RED, newgame, 2);
 
     /* initialise the board */
     init_board(newgame->gameboard);
@@ -57,9 +59,8 @@ void play_game(void) {
     /* the game struct that holds the data on the game state */
     struct game curgame;
     /* init the game struct */
-    curgame.gameboard;
+    init_game(&curgame);
     /* the main game loop */
-
     /* swap the game pointers */
 }
 
