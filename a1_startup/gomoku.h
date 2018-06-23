@@ -44,7 +44,8 @@ int menu() {
         /* Stops after error need to find a way to make it
         loop. */
         /* Conditional statements on buffer overflow based on:
-         * https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getString-basic.c
+         * Author: Paul Miller
+         * Source: https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getString-basic.c
          * Date: 11th June 2018. */
         if (text_input[strlen(text_input) - 1] != '\n') {
             error_print("Input line is too long\n");

@@ -34,20 +34,23 @@ enum input_result init_game(struct game* newgame) {
     if (rand() % NUM_PLAYERS == 0) {
         newgame->current = &newgame->players[1];
         newgame->other = &newgame->players[2];
-    } else {
+
+        newgame->current->token = C_WHITE;
+        newgame->other->token = C_RED;
+    } else if(rand() % NUM_PLAYERS == 1) {
         newgame->current = &newgame->players[2];
         newgame->other = &newgame->players[1];
-    }
-    /* newgame->players->token;*/
-    newgame->current->token = C_WHITE;
-    newgame->other->token = C_RED;
 
-    init_player(newgame->current, C_WHITE, newgame, 1);
-    init_player(newgame->other, C_RED, newgame, 2);
+        newgame->current->token = C_RED;
+        newgame->other->token = C_WHITE;
+    }
+    /* Initialises the players based on token */
+    init_player(newgame->current, newgame->current->token, newgame, 1);
+    init_player(newgame->other, newgame->other->token, newgame, 2);
 
     /* initialise the board */
     init_board(newgame->gameboard);
-    return IR_FAILURE;
+    return IR_SUCCESS;
 }
 
 /**
