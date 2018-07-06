@@ -119,22 +119,26 @@ enum input_result first_round(struct game* thegame) {
     normal_print("Please enter a location for a %s token: ", color_strings[thegame->current->token]);
     fgets(prompt_token, TOKENINPUT + EXTRACHARS, stdin);
 
-    prompt_token[strlen(prompt_token) - 1] = '\0';  
+    prompt_token[strlen(prompt_token) - 1] = '\0';
+
+    /* We validate the input as a string */
+    if(strstr(prompt_token, "8,8") != NULL) {
+        error_print("Token must be in the centre.\n");
+        return FALSE;
+    } 
     token = strtok(prompt_token, DELIMS);
     while (token != NULL) {
         long num_result;
         char *end;
         num_result = strtol(token, &end, 0);
-        /* Validation */
+        /* Validation the tokenised integers */
         if (*end) {
             error_print("Invalid input. Needs to be numeric.\n");
         } else if (end == 0) {
             error_print("Cannot leave token empty.\n");
-        } else if (num_result != 8) {
-            error_print("Token needs to be in the centre.\n");
         }
+        strcpy(prompt_token,token);
         token = strtok(NULL, DELIMS);
-        normal_print("%d\n", num_result);
     }
     /* initialise the players and pass in values */
     /* Validate whether number of players is null or not*/
