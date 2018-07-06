@@ -26,6 +26,7 @@
 const char* game_tokens[NUM_TOKEN_TYPES] = {" ", REDCOLOR "o" RESETCOLOR,
                                             WHITECOLOR "o" RESETCOLOR, NULL};
 
+const char* color_strings[NUM_TOKEN_TYPES] = {"Empty", REDCOLOR "red" RESETCOLOR, WHITECOLOR "white" RESETCOLOR, NULL};
 /**
  * the read rest of line function - clears the buffer when there is buffer
  *  overflow
@@ -40,6 +41,47 @@ void read_rest_of_line(void) {
     clearerr(stdin);
 }
 
+/**
+ * get_integer function is adapted from the getInteger code:
+ * Author: Paul Miller
+ * Source: https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-basic.c
+ * Date: 5th July 2018.
+ **/
+#if 0 
+ void get_integer(int* num, const unsigned length, const char* prompt, const int min, const int max) {
+    int exit = FALSE;
+    char int_prompt[TOKENINPUT + EXTRACHARS];
+    char *token;
+    int int_cast = 0;
+    char *end;
+
+    /* We create the prompt interface for the user, then validate and cast the converted string
+     * to a long int to an int. */
+    do {
+        normal_print("%s", prompt);
+        fgets(int_prompt, length + EXTRACHARS, stdin);
+        int_prompt[strlen(int_prompt) - 1] = '\0';
+
+       /*if (int_prompt[strlen(int_prompt) - 1] != '\n') {
+            error_print("Input was too long\n");
+        } */
+
+        int_cast = (int) strtol(int_prompt, &end, 0);
+        /*token = strtok(int_prompt, DELIMS);*/
+        /* Validation */
+        /*if (*end != 0) {
+            error_print("Input is not a number.\n");
+        } else if (int_cast <= min || int_cast >= max) {
+            normal_print("Input is outside of the range.\n");
+        } else {
+            exit = TRUE;
+        }*/
+    } while (exit == FALSE);
+    /* We then proceed to make the casted int called num to be called through the function */
+    *num = int_cast;
+    normal_print("%d\n", int_cast);
+}
+#endif 
 /* Removes new line that has \n during buffer when fgets() receives a string */
 /*ATTENTION FIX */
 void remove_newline(char line[]) {

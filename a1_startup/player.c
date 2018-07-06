@@ -32,15 +32,8 @@ enum input_result init_player(struct player* curplayer, enum cell token,
      * 2 players, we use the playernum to identify each player.*/
     normal_print("Enter player %d's name: ", playernum);
     fgets(name, NAMELEN + EXTRACHARS, stdin);
+
     strcpy(curplayer->name, name);
-    /* Prints out the current player's name's turn */
-    /*if (curplayer->token == C_WHITE) {
-        name[strlen(name) - 1] = '\0';
-        normal_print("%s plays first.\n", name);
-    } else if(curplayer->token == C_RED) {
-        name[strlen(name) - 1] = '\0';
-        normal_print("%s plays first.\n", name);
-    }*/
     return IR_SUCCESS;
 }
 
@@ -50,4 +43,29 @@ enum input_result init_player(struct player* curplayer, enum cell token,
  * display an error message but if it is valid return a IR_SUCCESS result. If a
  * user has chosen to quit the game, return IR_RTM.
  **/
-enum input_result take_turn(struct player* curplayer) { return IR_FAILURE; }
+enum input_result take_turn(struct player* curplayer) {
+    char turn[TOKENINPUT + EXTRACHARS];
+    char *token;
+    struct coordinate coordinates;
+    struct game thegame;
+    int two_turns = 2;
+    int one_turn = 1;
+    int x, y;
+    coordinates.x = x;
+    coordinates.y = y;
+
+
+
+
+    normal_print("Enter the move for %s whose token is %s:", curplayer->name, curplayer->token);
+    fgets(turn, TOKENINPUT + EXTRACHARS, stdin);
+    /* Validate 2 valid integers with a comma */
+    /* apply_move(curplayer->curgame->gameboard, , curplayer->token);*/
+
+    /* Validate users to quit when pressing enter or ctrl+d */
+    if(turn[0] == '\n') {
+        normal_print("Do you wish to quit?");
+        return QUIT;
+    }
+    return IR_SUCCESS; 
+}

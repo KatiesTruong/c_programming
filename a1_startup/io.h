@@ -45,9 +45,12 @@ enum input_result
  * is used with strtol to specify that the numerical string being processed
  * should be treated as a DECIMAL number.
  **/
+#define TOKENINPUT 5
+#define INPUTLIMIT 1
 #define LINELEN 80
 #define EXTRACHARS 2
 #define DECIMAL 10
+#define QUIT 0
 
 /* the number of menu items in the main menu */
 #define NUM_MENU_ITEMS 2
@@ -67,12 +70,20 @@ enum input_result
  **/
 #define NUM_TOKEN_TYPES 4
 
+/* Mainly for first round where we tokenise the comma char for token input and need
+ * 8,8 as the first location to be in the centre.
+ */
+#define DELIMS ","
+#define EMPTY " "
+#define INTMAX 15
+#define INTMIN 0
 /**
  * global variable that holds the strings for printing an empty square, a red
  * token or a white token.
  **/
 extern const char* game_tokens[];
 
+extern const char* color_strings[];
 /**
  * public functions implemented for this module
  **/
@@ -83,4 +94,6 @@ int error_print(const char*, ...);
 int normal_print(const char*, ...);
 
 void display_board(board);
+
+
 #endif /* include guard for the io module */

@@ -9,7 +9,7 @@
 #include "board.h"
 #include "player.h"
 #include "rules.h"
-
+#include "io.h"
 /**
  * This .h file and the accompanying .c file (game.c) manage the overall game.
  * Key to this is the game struct. The key data structures that don't have a
