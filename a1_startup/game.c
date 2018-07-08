@@ -59,7 +59,7 @@ enum input_result init_game(struct game* newgame) {
     if(curplayer == first_player) {
         newgame->current->name[strlen(newgame->current->name)-1]=0;
         normal_print("%s's first turn.\n", newgame->current->name);
-    } else {
+    } else if(curplayer == second_player){
         newgame->other->name[strlen(newgame->other->name)-1]=0;
         normal_print("%s's first turn.\n", newgame->other->name);
     }
@@ -80,8 +80,9 @@ void play_game(void) {
     /* init the game struct */
     init_game(&curgame);
     /* the main game loop */
+    display_board(curgame.gameboard);
     first_round(&curgame);
-    /*display_board(curgame.gameboard);*/
+    display_board(curgame.gameboard);
     /* swap the game pointers */
     swap_players(&curgame.current, &curgame.other);
 }
@@ -97,6 +98,11 @@ void play_game(void) {
  /*
   * Swapping pointers adapted from  
   */
+  /* Swapping code adapted from the swapping function in call by reference section:
+   * Author: Paul Miller
+   * Source: https://sites.google.com/a/rmit.edu.au/programming-in-c---notes/home/week-3-problem-solving-and-functional-abstraction/4-functions
+   * Date: 3rd July 2018.
+   */
 void swap_players(struct player** first, struct player** second) {
     struct player *temp  = *first;
     *first = *second;
@@ -115,34 +121,40 @@ void swap_players(struct player** first, struct player** second) {
 enum input_result first_round(struct game* thegame) {
     char prompt_token[TOKENINPUT + EXTRACHARS];
     char *token;
+    long num_result;
+    int num;
+    char *end;
+    
+    while (prompt_token != NULL) {
+        normal_print("Please enter a location for a %s token: ", color_strings[thegame->current->token]);
+        fgets(prompt_token, TOKENINPUT + EXTRACHARS, stdin);
 
-    normal_print("Please enter a location for a %s token: ", color_strings[thegame->current->token]);
-    fgets(prompt_token, TOKENINPUT + EXTRACHARS, stdin);
+        prompt_token[strlen(prompt_token) - 1] = '\0';
 
-    prompt_token[strlen(prompt_token) - 1] = '\0';
-
-    /* We validate the input as a string */
-    if(strstr(prompt_token, "8,8") != NULL) {
-        error_print("Token must be in the centre.\n");
-        return FALSE;
-    } 
-    token = strtok(prompt_token, DELIMS);
-    while (token != NULL) {
-        long num_result;
-        char *end;
-        num_result = strtol(token, &end, 0);
-        /* Validation the tokenised integers */
-        if (*end) {
-            error_print("Invalid input. Needs to be numeric.\n");
-        } else if (end == 0) {
-            error_print("Cannot leave token empty.\n");
+        /* We validate the input as a string */
+        if(!(strstr(prompt_token, "8,8") != NULL)) {
+            error_print("Token must be in the centre.\n");
+            return FALSE;
+        } else {
+            token = strtok(prompt_token, DELIMS);
+            num_result = strtol(token, &end, 0);
+            /* If the numbers are within the range of 0-15, we then convert the long to and int.*/
+            if (num_result <= INTMAX && num_result >= INTMIN) {
+                num = num_result;
+            }
+            /* Validate the tokenised integers */
+            else if (*end) {
+                error_print("Invalid input. Needs to be numeric.\n");
+                return FALSE;
+            } else if (end == 0) {
+                error_print("Cannot leave token empty.\n");
+                return FALSE;
+            }
+            token = strtok(NULL, DELIMS);
+            /*return TRUE;*/
+            return num;
         }
-        strcpy(prompt_token,token);
-        token = strtok(NULL, DELIMS);
     }
-    /* initialise the players and pass in values */
-    /* Validate whether number of players is null or not*/
     /* get_integer(&int_result, TOKENINPUT, prompt_token, INTMIN, INTMAX); */
-    /*token = strtok(NULL, DELIMS);*/
     return IR_SUCCESS; 
 }

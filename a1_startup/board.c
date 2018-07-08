@@ -18,40 +18,10 @@
  **/
 void init_board(board aboard) {
     /*Board structure adapted from:
-     *https://github.com/muaddib1971/c_examp/blob/master/lectures/Week-03/matrix_add.c
-     *Date: 13th June 2018. */
-    board new_board = {
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-         C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY},
-        {C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY,
-          C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY, C_EMPTY}
-    };
-    /*Display board debug*/
-    display_board(new_board);
+     * Author: Paul Miller
+     * Source: ~e70949/shared/prog_in_c/assignments/parta_sol
+     * Date: 6th July 2018. */
+     memset(aboard, 0, sizeof(enum cell) * BOARDWIDTH * BOARDHEIGHT);
 }
+
+

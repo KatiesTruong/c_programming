@@ -42,10 +42,8 @@ BOOLEAN move_is_valid(const struct player* curplayer,
 BOOLEAN apply_move(board theboard, const struct coordinate* themove,
                    enum cell token)
 {
-    int player;
-    if (take_turn(player) != 8) {
-        error_print("Invalid input\n");
-        return FALSE; 
-    }
+    /*int x = 0, y = 0;
+    themove->x;
+    themove->y;*/
     return IR_SUCCESS;
 }

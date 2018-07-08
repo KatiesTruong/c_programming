@@ -30,9 +30,9 @@ enum input_result init_player(struct player* curplayer, enum cell token,
     /* Initialise the player */
     /* Prompts for player 1 and 2's name, since curplayer->name points to
      * 2 players, we use the playernum to identify each player.*/
+    /* Segmentation fault */
     normal_print("Enter player %d's name: ", playernum);
     fgets(name, NAMELEN + EXTRACHARS, stdin);
-
     strcpy(curplayer->name, name);
     return IR_SUCCESS;
 }
@@ -45,17 +45,14 @@ enum input_result init_player(struct player* curplayer, enum cell token,
  **/
 enum input_result take_turn(struct player* curplayer) {
     char turn[TOKENINPUT + EXTRACHARS];
-    char *token;
+    char prompt_quit[INPUTLIMIT + EXTRACHARS];
     struct coordinate coordinates;
-    struct game thegame;
-    int two_turns = 2;
-    int one_turn = 1;
-    int x, y;
-    coordinates.x = x;
-    coordinates.y = y;
-
-
-
+    /*int two_turns = 2;
+    int one_turn = 1;*/
+    coordinates.x = 0;
+    coordinates.y = 0;
+    curplayer->token = coordinates.x;
+    curplayer->token = coordinates.y;
 
     normal_print("Enter the move for %s whose token is %s:", curplayer->name, curplayer->token);
     fgets(turn, TOKENINPUT + EXTRACHARS, stdin);
@@ -63,9 +60,15 @@ enum input_result take_turn(struct player* curplayer) {
     /* apply_move(curplayer->curgame->gameboard, , curplayer->token);*/
 
     /* Validate users to quit when pressing enter or ctrl+d */
+    /* Validate users to quit when pressing enter or ctrl+d */
     if(turn[0] == '\n') {
-        normal_print("Do you wish to quit?");
-        return QUIT;
+        normal_print("Do you wish to quit? Press Y for yes and N for no.");
+        fgets(prompt_quit, INPUTLIMIT + EXTRACHARS, stdin);
+        if(strstr(prompt_quit, "y") != NULL || strstr(prompt_quit, "Y") != NULL) {
+            return QUIT;
+        }
+    } else {
+
     }
     return IR_SUCCESS; 
 }
