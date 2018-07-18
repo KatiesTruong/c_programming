@@ -60,7 +60,6 @@ enum input_result take_turn(struct player* curplayer) {
     /* apply_move(curplayer->curgame->gameboard, , curplayer->token);*/
 
     /* Validate users to quit when pressing enter or ctrl+d */
-    /* Validate users to quit when pressing enter or ctrl+d */
     if(turn[0] == '\n') {
         normal_print("Do you wish to quit? Press Y for yes and N for no.");
         fgets(prompt_quit, INPUTLIMIT + EXTRACHARS, stdin);

@@ -26,7 +26,12 @@
 const char* game_tokens[NUM_TOKEN_TYPES] = {" ", REDCOLOR "o" RESETCOLOR,
                                             WHITECOLOR "o" RESETCOLOR, NULL};
 
-const char* color_strings[NUM_TOKEN_TYPES] = {"Empty", REDCOLOR "red" RESETCOLOR, WHITECOLOR "white" RESETCOLOR, NULL};
+/* Source code adapted from Assignment 2 Solution files:
+ * Author: Paul Miller
+ * Source: ~e70949/shared/prog_in_c/assignments/parta_sol
+ * Date: 7th July 2018. */
+const char* color_strings[NUM_TOKEN_TYPES] = {
+    "Empty", REDCOLOR "red" RESETCOLOR, WHITECOLOR "white" RESETCOLOR, NULL};
 /**
  * the read rest of line function - clears the buffer when there is buffer
  *  overflow
@@ -44,7 +49,8 @@ void read_rest_of_line(void) {
 /**
  * get_integer function is adapted from the getInteger code:
  * Author: Paul Miller
- * Source: https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-basic.c
+ * Source:
+ *https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-basic.c
  * Date: 5th July 2018.
  **/
 #if 0 
@@ -81,7 +87,7 @@ void read_rest_of_line(void) {
     *num = int_cast;
     normal_print("%d\n", int_cast);
 }
-#endif 
+#endif
 /* Removes new line that has \n during buffer when fgets() receives a string */
 /*ATTENTION FIX */
 void remove_newline(char line[]) {
