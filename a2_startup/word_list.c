@@ -9,7 +9,6 @@
 
 #include "word_list.h"
 #include "io.h"
-#include "player.h"
 /******************************************************************************
  * the word_list module simply keeps track of all the words in our
  * "dictionary". After loading from disk, the main purpose of this list will be
@@ -20,18 +19,20 @@
  * Source: https://github.com/muaddib1971/c_examp/blob/master/tutes/wk7/list.c
  * Author: Paul Miller
  * Date: 24th July 2018. */
-BOOLEAN wordlist_init(struct word_list* wordlist) {
-    struct word_node* word_node;
+void wordlist_init(struct word_list* wordlist) {
+    /*struct word_node* word_node;*/
+    assert(wordlist);
+    wordlist->head = NULL;
+    wordlist->count = 0;
     memset(wordlist, 0, sizeof(struct word_list));
-    wordlist->head =
-        (struct word_node*)malloc(sizeof(word_node) * MAX_WORD_LEN);
-    if (wordlist->head == NULL) {
-        error_print("Failed to allocate memory.\n");
-        return EXIT_FAILURE;
-    }
-    /* If true we pass in the list to the size */
-    wordlist->len = MAX_WORD_LEN;
-    return EXIT_SUCCESS;
+    /* wordlist->head =
+         (struct word_node*)malloc(sizeof(word_node) * MAX_WORD_LEN);
+     if (wordlist->head == NULL) {
+         error_print("Failed to allocate memory.\n");
+         return EXIT_FAILURE;
+     }
+     wordlist->len = MAX_WORD_LEN;
+     return EXIT_SUCCESS;*/
 }
 
 /* Source code adapted from list.c for personlist
@@ -39,23 +40,23 @@ BOOLEAN wordlist_init(struct word_list* wordlist) {
  * https://github.com/muaddib1971/c_examp/blob/master/lectures/Week-07/list.c
  * Author: Paul Miller
  * Date: 25th July 2018.*/
-BOOLEAN wordlist_add(struct word_list* wordlist, char* word) {
+BOOLEAN wordlist_add(struct word_list* wordlist, struct player* data) {
     struct word_node *current, *prev = NULL;
     struct word_node* new;
 
     /* Check for valid pointers */
     assert(wordlist);
-    assert(word);
+    assert(data);
 
     /* We use safemalloc and then initialise the next pointer and word char */
     new = safemalloc(sizeof(struct word_node));
     new->next = NULL;
-    new->word = word;
+    new->data = data;
     /* If we are at NULL, at the beginning of the list, we assign a new word
     node to the head of the list */
     if (wordlist->head == NULL) {
         wordlist->head = new;
-        wordlist++->count;
+        wordlist->count += 1;
         return EXIT_SUCCESS;
     }
     current = wordlist->head;
@@ -68,13 +69,14 @@ BOOLEAN wordlist_add(struct word_list* wordlist, char* word) {
         prev->next = new;
         new->next = current;
     }
-    wordlist++->count;
+    wordlist->count += 1;
     return EXIT_SUCCESS;
 }
-
 /* Wordlist function that frees the list. Good for clearing or
    cleaning out random statements */
 void wordlist_free(struct word_list* wordlist) {
+    wordlist->count = wordlist->maxsize = 0;
+#if 0
     struct word_node* current = wordlist->head;
     /* while the current list is not empty we assign the next node
        to the current one */
@@ -82,7 +84,15 @@ void wordlist_free(struct word_list* wordlist) {
         struct word_node* next;
         next = current;
         current = current->next;
-        free(next->word);
         free(next);
     }
+#endif
+}
+
+void print_wordlist(struct word_list* wordlist) {
+    struct word_node* current;
+    assert(wordlist);
+    /* We start at the beginning of the list */
+    current = wordlist->head;
+    /* while we have content in the list*/
 }

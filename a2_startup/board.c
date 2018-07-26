@@ -14,3 +14,8 @@
  * that manage the game board: allocate the board, set and get the contents of
  * the cells for the board and free the board when exiting the game
  ****************************************************************************/
+/* Initialise board to dynamic array */
+void init_board(struct board* aboard, int x, int y) {
+    int x, y;
+    board = malloc(sizeof(int*) * x);
+}

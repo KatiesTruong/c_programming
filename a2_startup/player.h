@@ -7,11 +7,11 @@
  * study period 2, 2018.
  *****************************************************************************/
 
+#include <string.h>
 #include "board.h"
 #include "io.h"
 #include "rules.h"
 #include "tile_list.h"
-#include <string.h>
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -19,21 +19,21 @@
 #define MAX_PLAYERS 6
 #define HANDSIZE 7
 #define NAMELEN 20
+#define EXTRACHARS 2
 
 struct game;
 
-struct player
-{
-        /* the name of the player */
-        char name[NAMELEN + 1];
-        /* the player's score */
-        int score;
-        /* the color of each token played by this player */
-        enum color color;
-        /* the hand for the player */
-        struct tile_list hand;
-        /* a pointer to the game data for this game */
-        struct game* thegame;
+struct player {
+    /* the name of the player */
+    char name[NAMELEN + 1];
+    /* the player's score */
+    int score;
+    /* the color of each token played by this player */
+    enum color color;
+    /* the hand for the player */
+    struct tile_list hand;
+    /* a pointer to the game data for this game */
+    struct game* thegame;
 };
 
 /* public functions callable from this module */

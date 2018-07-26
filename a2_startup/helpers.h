@@ -9,6 +9,7 @@
 
 #include <assert.h>
 #include <ctype.h>
+#include <errno.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +19,6 @@
 
 #ifndef HELPERS_H
 #define HELPERS_H
-#endif
 
 /* publicly used functions */
 FILE* file_open(char* file);
@@ -28,3 +28,4 @@ void* safe_malloc(size_t, unsigned long);
 
 /* provide line numbers to safe_malloc through a macro */
 #define safemalloc(size) safe_malloc(size, __LINE__)
+#endif

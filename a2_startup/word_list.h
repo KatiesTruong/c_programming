@@ -27,6 +27,7 @@
 struct word_node {
     char* word;
     struct word_node* next;
+    struct player* data;
 };
 
 /**
@@ -37,10 +38,12 @@ struct word_list {
     struct word_node* head;
     int len;
     unsigned count;
+    unsigned maxsize;
 };
 
 /* publicly callable functions from this module */
-BOOLEAN wordlist_init(struct word_list*);
-BOOLEAN wordlist_add(struct word_list*, char*);
+void wordlist_init(struct word_list*);
+BOOLEAN wordlist_add(struct word_list*, struct player*);
 void wordlist_free(struct word_list*);
+
 #endif

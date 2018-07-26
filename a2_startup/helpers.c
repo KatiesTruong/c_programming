@@ -6,7 +6,6 @@
  * Startup code provided by Paul Miller for use in "Programming in C",
  * study period 2, 2018.
  *****************************************************************************/
-
 #include "helpers.h"
 /******************************************************************************
  * the helpers module is a great place to store functions that don't logically
@@ -21,12 +20,14 @@
 /* Function that opens files and outputs error when it fails */
 
 FILE* file_open(char* file_name) {
-    FILE* file;
-    if ((file = fopen(file_name, "r")) == NULL) {
-        perror("Failed to open file.");
+    FILE* file = fopen(file_name, "r");
+    if (file != NULL) {
+        normal_print("Successfully opened %s file.\n", file);
+    } else {
+        /* return file when succeeds to open*/
+        fprintf(stderr, "Failed to open %s file: %s\n", file, strerror(errno));
         exit(EXIT_FAILURE);
     }
-    /* return file when succeeds to open*/
     return file;
 }
 
@@ -35,7 +36,7 @@ FILE* file_open(char* file_name) {
 FILE* file_write(char* file_name) {
     FILE* file;
     if ((file = fopen(file_name, "w")) == NULL) {
-        perror("Failed to open file.");
+        fprintf(stderr, "Failed to open %s file: %s\n", file, strerror(errno));
         exit(EXIT_FAILURE);
     }
     return file;
@@ -46,9 +47,9 @@ int load(struct word_list* wordlist, FILE* fp_read) {
     size_t nelts;
     if (fread(&nelts, sizeof(size_t), 1, fp_read) != 1 ||
         fread(wordlist, sizeof(struct word_list), nelts, fp_read) != nelts) {
-        return EOF;
+        return EXIT_FAILURE;
     }
-    return nelts;
+    return EOF;
 }
 
 /* Source code adapted from safemalloc.c file
@@ -61,7 +62,8 @@ void* safe_malloc(size_t size, unsigned long line_num) {
     void* result;
     result = malloc(size);
     if (!result) {
-        error_print("Failed to allocate memory.\n");
+        fprintf(stderr, "Failed to allocate %s memory: %s\n", result,
+                strerror(errno));
         fprintf(stderr, "On line: %ld\n", line_num);
         exit(EXIT_FAILURE);
     }

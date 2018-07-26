@@ -7,14 +7,14 @@
  * study period 2, 2018.
  *****************************************************************************/
 
-#include "board.h"
-#include "shared.h"
-#include "word_list.h"
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "board.h"
+#include "shared.h"
+#include "word_list.h"
 
 #ifndef IO_H
 #define IO_H
@@ -22,12 +22,7 @@
 /**
  * the possible outcomes of a request for keyboard input
  **/
-enum input_result
-{
-        IR_FAILURE,
-        IR_SUCCESS,
-        IR_RTM
-};
+enum input_result { IR_FAILURE, IR_SUCCESS, IR_RTM };
 
 /* the color strings array used to format colours when printing the board */
 extern const char *color_strings[];
