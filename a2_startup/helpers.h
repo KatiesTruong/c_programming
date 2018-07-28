@@ -19,13 +19,12 @@
 
 #ifndef HELPERS_H
 #define HELPERS_H
+#define WORD_LEN 12
+#define EXTRACHARS 2
 
 /* publicly used functions */
 FILE* file_open(char* file);
 FILE* file_write(char* file);
 int load(struct word_list*, FILE* fp_read);
-void* safe_malloc(size_t, unsigned long);
-
-/* provide line numbers to safe_malloc through a macro */
-#define safemalloc(size) safe_malloc(size, __LINE__)
+void bubble_sort(struct word_node*, int);
 #endif

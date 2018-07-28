@@ -75,8 +75,6 @@ BOOLEAN wordlist_add(struct word_list* wordlist, struct player* data) {
 /* Wordlist function that frees the list. Good for clearing or
    cleaning out random statements */
 void wordlist_free(struct word_list* wordlist) {
-    wordlist->count = wordlist->maxsize = 0;
-#if 0
     struct word_node* current = wordlist->head;
     /* while the current list is not empty we assign the next node
        to the current one */
@@ -84,9 +82,9 @@ void wordlist_free(struct word_list* wordlist) {
         struct word_node* next;
         next = current;
         current = current->next;
+        free(next->data);
         free(next);
     }
-#endif
 }
 
 void print_wordlist(struct word_list* wordlist) {
@@ -95,4 +93,27 @@ void print_wordlist(struct word_list* wordlist) {
     /* We start at the beginning of the list */
     current = wordlist->head;
     /* while we have content in the list*/
+    while (current) {
+        /* struct tile* data = current->data;*/
+        normal_print("%s\t", wordlist->head);
+        current = current->next;
+    }
+}
+
+/* Source code adapted from safemalloc.c file
+ * Source:
+ * https://github.com/muaddib1971/c_examp/blob/master/lectures/Week-07/safemalloc.c
+ * Author: Paul Miller
+ * Date: 25th July 2018.*/
+/* Functions for safe memory allocation */
+void* safe_malloc(size_t size, unsigned long line_num) {
+    void* result;
+    result = malloc(size);
+    if (!result) {
+        fprintf(stderr, "Failed to allocate %s memory: %s\n", result,
+                strerror(errno));
+        fprintf(stderr, "On line: %ld\n", line_num);
+        exit(EXIT_FAILURE);
+    }
+    return result;
 }

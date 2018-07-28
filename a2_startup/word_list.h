@@ -28,6 +28,7 @@ struct word_node {
     char* word;
     struct word_node* next;
     struct player* data;
+    int word_len;
 };
 
 /**
@@ -45,5 +46,8 @@ struct word_list {
 void wordlist_init(struct word_list*);
 BOOLEAN wordlist_add(struct word_list*, struct player*);
 void wordlist_free(struct word_list*);
-
+void* safe_malloc(size_t, unsigned long);
+void print_wordlist(struct word_list*);
+/* provide line numbers to safe_malloc through a macro */
+#define safemalloc(size) safe_malloc(size, __LINE__)
 #endif
