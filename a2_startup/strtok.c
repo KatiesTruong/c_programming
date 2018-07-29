@@ -3,16 +3,32 @@
 #include <string.h>
 
 #define DELIMS ","
+#define BUFF_SIZE 1020
+int main(int argc, char** argv) {
+    FILE* tile_file;
+    char* token;
+    char buffer[BUFF_SIZE];
+    char* tile_name = "tiles.txt";
 
-int main(int argc, char **argv) {
-    unsigned int randval;
-    FILE *f;
+    tile_file = fopen("tiles.txt", "r");
 
-    f = fopen("/dev/random", "r");
-    fread(&randval, sizeof(randval), 1, f);
-    fclose(f);
+    if (tile_file == NULL) {
+        fprintf(stderr, "Unable to open file %s\n", tile_name);
 
-    printf("%u\n", randval);
+    } else {
+        while (fgets(buffer, BUFF_SIZE, tile_file) != NULL) {
+            token = strtok(buffer, DELIMS);
+            while (token != NULL) {
+                printf("%s\n", token);
+                token = strtok(NULL, DELIMS);
+            }
+        }
 
-    return 0;
+        if (ferror(tile_file)) {
+            perror("The following error occurred");
+        }
+
+        fclose(tile_file);
+    }
+    return EXIT_SUCCESS;
 }

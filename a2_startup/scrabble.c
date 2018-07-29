@@ -22,9 +22,7 @@
  *****************************************************************************/
 int main(int argc, char* argv[]) {
     struct word_list wordlist;
-    struct tile_list tilelist;
     struct player* players;
-    unsigned seed;
     FILE *fp_read_dict, *fp_read_tile;
     int result_dict = 0, result_tile = 0;
     long int randomise;
@@ -38,7 +36,6 @@ int main(int argc, char* argv[]) {
      * Date: 19th July 2018. */
     /* Initialise the wordlist */
     wordlist_init(&wordlist);
-    /* memset(wordlist, 0, sizeof(struct word_list) * DIRECTORYSIZE);*/
     /* validate command line arguments */
     /* We place != since we process 3 files*/
     /* if (argc != 3) {
@@ -51,8 +48,8 @@ int main(int argc, char* argv[]) {
     /* opens the files for dictionary and tiles text */
     fp_read_dict = file_open("words.len5"); /* argv[READER_DICT] = argv[1] */
     fp_read_tile = file_open("tiles.txt");  /* argv[READER_TILES] = argv[2] */
-    fseek(fp_read_dict, FILE_SIZE, SEEK_SET);
-    fseek(fp_read_tile, FILE_SIZE, SEEK_SET);
+    fseek(fp_read_dict, 0, SEEK_SET);
+    fseek(fp_read_tile, 0, SEEK_SET);
     /* when loading data we handle the errors, where -1 is returned a true value
      * for opening the file */
     if (result_dict < -1 && result_tile < -1) {
@@ -62,7 +59,7 @@ int main(int argc, char* argv[]) {
 
     /* display a welcome message */
     normal_print("Please wait while we load the dictionary...\n");
-    /*tokenise_tokens(&tilelist, fp_read_tile);*/
+    tokenise_tokens(fp_read_tile);
     /* Source code on strtol adapted from StackOverflow
      * Author: Unknown
      * Source:
@@ -77,7 +74,6 @@ int main(int argc, char* argv[]) {
     if (argv[3] != NULL && *rand_str && strlen(rand_str) < 10) {
         if (isdigit(*rand_str)) {
             long convert = strtol(rand_str, &rand_str, 10);
-            /*randomise = rand() % convert;*/
             normal_print("Using seed %ld\n", convert);
             /* For now we limit the seed number length to 10*/
         } else {
@@ -95,7 +91,7 @@ int main(int argc, char* argv[]) {
     }
 
     /* load the dictionary file */
-    result_dict = load(&wordlist, fp_read_dict);
+    result_dict = load_word_list(argv[1], &wordlist);
     /*result_tile = load(&wordlist, fp_read_tile);*/
     fclose(fp_read_dict);
     fclose(fp_read_tile);

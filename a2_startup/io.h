@@ -44,6 +44,8 @@ struct tile_list;
 /* public functions implemented for this module */
 void read_rest_of_line(void);
 
+int word_compare(const void *, const void *);
+
 BOOLEAN load_word_list(const char[], struct word_list *);
 
 BOOLEAN load_scores(const char[], struct tile_list **, struct tile_list **);

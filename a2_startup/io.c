@@ -8,8 +8,8 @@
  *****************************************************************************/
 
 #include "io.h"
-#include "tile_list.h"
 #include "game.h"
+#include "tile_list.h"
 
 /******************************************************************************
  * the io module should contain the logic for all io functions, both for
@@ -21,19 +21,23 @@
  * array that contains the color strings for each color available in the
  * game
  **/
-const char* color_strings[] = { COLOR_RED,   COLOR_GREEN,   COLOR_YELLOW,
-                                COLOR_BLUE,  COLOR_MAGENTA, COLOR_CYAN,
-                                COLOR_RESET, NULL };
+const char* color_strings[] = {COLOR_RED,   COLOR_GREEN,   COLOR_YELLOW,
+                               COLOR_BLUE,  COLOR_MAGENTA, COLOR_CYAN,
+                               COLOR_RESET, NULL};
 
 /**
  *  clears the buffer when there is a buffer overflow of input
  **/
-void read_rest_of_line(void)
-{
-        int ch;
-        while (ch = getc(stdin), ch != '\n' && ch != EOF)
-                ;
-        clearerr(stdin);
+void read_rest_of_line(void) {
+    int ch;
+    while (ch = getc(stdin), ch != '\n' && ch != EOF)
+        ;
+    clearerr(stdin);
+}
+
+/* Compares the first and second word in the qsort function*/
+int word_compare(const void* first, const void* second) {
+    return strcmp(first, second);
 }
 
 /**
@@ -44,9 +48,45 @@ void read_rest_of_line(void)
  * that the whole word has been read and remove the newline at the end of
  * each line.
  **/
-BOOLEAN load_word_list(const char fname[], struct word_list* wordlist)
-{
-        return FALSE;
+BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
+    struct word_node* node;
+    FILE* file;
+    char list[NUM_LETTERS][NUM_LETTERS];
+    size_t word_size;
+    int i;
+    file = fopen(fname, "r");
+    /* Error checking */
+    if (file == NULL) {
+        error_print("Unable to open %s file.\n", file);
+        return EXIT_FAILURE;
+    } else {
+        /* Source code on cleaning new line and sorting list based from
+         * StackOverflow Author: Unknown Source:
+         * https://stackoverflow.com/questions/31751782/qsort-array-of-strings-in-alphabetical-order
+         * Date: 29th July 2018.*/
+        /* We read and tokenised the list */
+        while (word_size < NUM_LETTERS &&
+               fgets(list[word_size], sizeof(*list), file) != NULL) {
+            /* We store the newline string and if it exists we remove the
+             * trailing line*/
+            char* newline = strchr(list[word_size], '\n');
+            if (newline != NULL) {
+                *newline = '\0';
+            }
+            if (*(list[word_size])) {
+                ++word_size;
+            }
+        }
+        /* Then outside the loop we sort the array*/
+        qsort(list, word_size, sizeof list[0], word_compare);
+        /*Debugging*/
+        for (i = 0; i < word_size; i++) {
+            normal_print("%d: %s\n", i, list[i]);
+        }
+        /*We free each string*/
+    }
+    fclose(file);
+    return EXIT_SUCCESS;
 }
 
 /**
@@ -54,9 +94,8 @@ BOOLEAN load_word_list(const char fname[], struct word_list* wordlist)
  * should be created
  **/
 BOOLEAN load_scores(const char fname[], struct tile_list** lettermap,
-                    struct tile_list** fulllist)
-{
-        return FALSE;
+                    struct tile_list** fulllist) {
+    return FALSE;
 }
 
 /**
@@ -66,54 +105,46 @@ BOOLEAN load_scores(const char fname[], struct tile_list** lettermap,
  * color_strings array to retrieve the color codes to display the strings
  * in the right color.
  **/
-void display_board(const struct board* theboard)
-{
-}
+void display_board(const struct board* theboard) {}
 
 /**
  * display the hand in a table. Please see the sample executable / the
  * assignment specification for the expected format of this output
  **/
-void print_hand(struct tile_list* curhand)
-{
-}
+void print_hand(struct tile_list* curhand) {}
 
 /**
  * prints out text to stdout
  **/
-int normal_print(const char format[], ...)
-{
-        int charcount;
-        va_list arglist;
-        /* extract the argument list */
-        va_start(arglist, format);
-        /* send to output */
-        charcount = vprintf(format, arglist);
-        /* all done */
-        va_end(arglist);
-        return charcount;
+int normal_print(const char format[], ...) {
+    int charcount;
+    va_list arglist;
+    /* extract the argument list */
+    va_start(arglist, format);
+    /* send to output */
+    charcount = vprintf(format, arglist);
+    /* all done */
+    va_end(arglist);
+    return charcount;
 }
 
 /**
  * prints output to stderr
  **/
-int error_print(const char format[], ...)
-{
-        va_list arglist;
-        int charcount = 0;
-        /* grab the arguments */
-        va_start(arglist, format);
-        /* send them to stderr */
-        charcount += vfprintf(stderr, format, arglist);
-        /* all done */
-        va_end(arglist);
-        return charcount;
+int error_print(const char format[], ...) {
+    va_list arglist;
+    int charcount = 0;
+    /* grab the arguments */
+    va_start(arglist, format);
+    /* send them to stderr */
+    charcount += vfprintf(stderr, format, arglist);
+    /* all done */
+    va_end(arglist);
+    return charcount;
 }
 
 /**
  * prints out the final scores for each player to stdout, sorted from highest
  * scoring player to lowest scoring player
  **/
-void print_finscores(struct game* thegame)
-{
-}
+void print_finscores(struct game* thegame) {}

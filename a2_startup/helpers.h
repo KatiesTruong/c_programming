@@ -25,6 +25,4 @@
 /* publicly used functions */
 FILE* file_open(char* file);
 FILE* file_write(char* file);
-int load(struct word_list*, FILE* fp_read);
-void bubble_sort(struct word_node*, int);
 #endif

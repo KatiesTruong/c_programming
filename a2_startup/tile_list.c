@@ -15,16 +15,24 @@
  * be added to or deleted from (such as a tile deck or tile hand). You are
  *required to create the functions for this list.
  *****************************************************************************/
-int tokenise_tokens(struct tile_list* tilelist, FILE* fp_read) {
-    FILE* fp_read_tile;
+FILE* tokenise_tokens(FILE* file) {
     char buffer[BUFFER_SIZE];
     char* token;
-    /*Tokenise loop*/
-    while (fgets(buffer, BUFFER_SIZE, fp_read_tile) != NULL) {
-        token = strtok(buffer, DELIMS);
-        while (token != NULL) {
-            printf("%s\n", token);
-            token = strtok(NULL, DELIMS);
+
+    /* Error checking*/
+    if (file == NULL) {
+        error_print("Unable to open %s file\n", file);
+        return FALSE;
+    } else {
+        while (fgets(buffer, BUFFER_SIZE, file) != NULL) {
+            token = strtok(buffer, DELIMS);
+            while (token != NULL) {
+                /* Debugging */
+                /*normal_print("%s\n", token);*/
+                token = strtok(NULL, DELIMS);
+            }
         }
     }
+    fclose(file);
+    return file;
 }

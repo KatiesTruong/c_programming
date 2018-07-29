@@ -24,7 +24,11 @@
  **/
 struct player* new_players(int num_players, struct game* thegame,
                            enum input_result* status) {
-    return NULL;
+    /* We'll allow 6 players for now*/
+    long int random_col;
+    while (num_players == MAX_PLAYERS) {
+    }
+    return EXIT_SUCCESS;
 }
 
 /**

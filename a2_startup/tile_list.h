@@ -53,5 +53,5 @@ struct tile_list {
 };
 
 /* Public functions*/
-int tokenise_tokens(struct tile_list*, FILE*);
+FILE* tokenise_tokens(FILE*);
 #endif
