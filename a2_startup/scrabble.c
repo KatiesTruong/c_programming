@@ -46,8 +46,8 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }*/
     /* opens the files for dictionary and tiles text */
-    fp_read_dict = file_open("words.len5"); /* argv[READER_DICT] = argv[1] */
-    fp_read_tile = file_open("tiles.txt");  /* argv[READER_TILES] = argv[2] */
+    fp_read_dict = file_open(argv[1]); /* argv[READER_DICT] = argv[1] */
+    fp_read_tile = file_open(argv[2]);  /* argv[READER_TILES] = argv[2] */
     fseek(fp_read_dict, 0, SEEK_SET);
     fseek(fp_read_tile, 0, SEEK_SET);
     /* when loading data we handle the errors, where -1 is returned a true value

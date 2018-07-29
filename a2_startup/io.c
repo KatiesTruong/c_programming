@@ -45,7 +45,7 @@ int word_compare(const void* first, const void* second) {
  * words. You should open the file then read in each line into a node in
  * the word list. Don't forget to validate each action and remove the
  * newline characters as you load the data in. Also, don't forget to validate
- * that the whole word has been read and remove the newline at the end of
+ * that the whole word has been read an d remove the newline at the end of
  * each line.
  **/
 BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
@@ -55,9 +55,26 @@ BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
     size_t word_size;
     int i;
     file = fopen(fname, "r");
-    /* Error checking */
+    /* Error checking for an empty file and for word length for
+    dictionary files */
     if (file == NULL) {
         error_print("Unable to open %s file.\n", file);
+        return EXIT_FAILURE;
+    } else if (strcmp(fname, "words.len5") == 0 &&
+               strlen(list[word_size]) > 5) {
+        error_print("Word length too big for %s\n", fname);
+        return EXIT_FAILURE;
+    } else if (strcmp(fname, "words.len7") == 0 &&
+               strlen(list[word_size]) > 7) {
+        error_print("Word length too big for %s\n", fname);
+        return EXIT_FAILURE;
+    } else if (strcmp(fname, "words.len10") == 0 &&
+               strlen(list[word_size]) > 10) {
+        error_print("Word length too big for %s\n", fname);
+        return EXIT_FAILURE;
+    } else if (strcmp(fname, "words.len12") == 0 &&
+               strlen(list[word_size]) > 12) {
+        error_print("Word length too big for %s\n", fname);
         return EXIT_FAILURE;
     } else {
         /* Source code on cleaning new line and sorting list based from
