@@ -51,7 +51,7 @@ BOOLEAN init_tilelist(struct tile_list* tilelist) {
     return EXIT_SUCCESS;
 }
 
-BOOLEAN add_tiles(struct tile_list* tilelist, struct tile tile) {
+BOOLEAN add_tiles(struct tile_list* tilelist, struct tile tiles) {
     int count;
     if (tilelist->num_tiles == tilelist->total_tiles) {
         void* test = (struct tile*)realloc(
@@ -67,11 +67,10 @@ BOOLEAN add_tiles(struct tile_list* tilelist, struct tile tile) {
         int back_count;
         for (back_count = tilelist->num_tiles; back_count > count;
              back_count--) {
-            tilelist->tiles[count] = tile;
+            tilelist->tiles[count] = tiles;
             tilelist++->num_tiles;
             return EXIT_SUCCESS;
         }
     }
-    tilelist->tiles[tilelist->num_tiles++] = tile;
-    return EXIT_SUCCESS;
+    tilelist->
 }

@@ -22,20 +22,23 @@
  *****************************************************************************/
 int main(int argc, char* argv[]) {
     struct word_list wordlist;
+    struct tile tile;
+    struct tile_list tilelist;
     struct player* players;
     FILE *fp_read_dict, *fp_read_tile;
     int result_dict = 0, result_tile = 0;
-    long int randomise;
-    char name[NAMELEN + EXTRACHARS];
+    long int randomise, count=0;
     char* rand_str = argv[3];
+    char ch;
 
     BOOLEAN quit = FALSE;
     /* Source code adapted from reader.c
      * Author: Paul Miller
      * Source:
      * Date: 19th July 2018. */
-    /* Initialise the wordlist */
+    /* Initialise the wordlist and tilelist */
     wordlist_init(&wordlist);
+    init_tilelist(&tilelist);
     /* validate command line arguments */
     /* We place != since we process 3 files*/
     /* if (argc != 3) {
@@ -90,8 +93,16 @@ int main(int argc, char* argv[]) {
         normal_print("Using seed %ld\n", randomise);
     }
 
-    /* load the dictionary file */
+    /* load the dictionary file, and after we load it we display
+    the number of words loaded. Note that while the system states 
+    that it has listed the words of each dictionary file. We are in fact only
+    loading up to 100 words for now */
     result_dict = load_word_list(argv[1], &wordlist);
+    while((ch = fgetc(fp_read_dict)) != EOF) {
+        if(ch=='\n');
+        count++;
+    }
+    normal_print("%ld words have been loaded.\n", count);
     /*result_tile = load(&wordlist, fp_read_tile);*/
     fclose(fp_read_dict);
     fclose(fp_read_tile);
@@ -99,6 +110,7 @@ int main(int argc, char* argv[]) {
     /* play the game :) */
     while (!quit) {
         print_wordlist(&wordlist);
+        add_tiles(&tilelist, tile);
         /* free memory */
         wordlist_free(&wordlist);
         return EXIT_SUCCESS;

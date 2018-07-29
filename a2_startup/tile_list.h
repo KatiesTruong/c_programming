@@ -54,4 +54,7 @@ struct tile_list {
 
 /* Public functions*/
 FILE* tokenise_tokens(FILE*);
+BOOLEAN init_tilelist(struct tile_list*);
+BOOLEAN add_tiles(struct tile_list*, struct tile);
+#define DOUBLE(X) ((X) * (X))
 #endif

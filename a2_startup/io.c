@@ -35,11 +35,35 @@ void read_rest_of_line(void) {
     clearerr(stdin);
 }
 
+/* Source code adapted from getInteger-advanced
+ * Author: Paul Miller
+ * Source:
+ * https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-advanced.c
+ * Date: 29th July 2018.*/
+BOOLEAN get_int(int* integer, const char* prompt, const int min,
+                const int max) {
+    BOOLEAN finished = FALSE;
+    char input[MAX_INT_LEN + EXTRACHARS];
+    long long_result;
+    int int_result = 0;
+    char* end;
+}
+
 /* Compares the first and second word in the qsort function*/
 int word_compare(const void* first, const void* second) {
     return strcmp(first, second);
 }
 
+int word_count(FILE* file) {
+    int count = 0;
+    char ch;
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n')
+            ;
+        count++;
+    }
+    return count;
+}
 /**
  * loads the word list (dictionary of allowed words) into a linked list of
  * words. You should open the file then read in each line into a node in
@@ -54,6 +78,8 @@ BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
     char list[NUM_LETTERS][NUM_LETTERS];
     size_t word_size;
     int i;
+    char ch;
+
     file = fopen(fname, "r");
     /* Error checking for an empty file and for word length for
     dictionary files */
@@ -81,7 +107,8 @@ BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
          * StackOverflow Author: Unknown Source:
          * https://stackoverflow.com/questions/31751782/qsort-array-of-strings-in-alphabetical-order
          * Date: 29th July 2018.*/
-        /* We read and tokenised the list */
+        /* We store 100 words from the list for now, since we don't want to
+         * overload the system */
         while (word_size < NUM_LETTERS &&
                fgets(list[word_size], sizeof(*list), file) != NULL) {
             /* We store the newline string and if it exists we remove the
@@ -97,9 +124,10 @@ BOOLEAN load_word_list(const char fname[], struct word_list* wordlist) {
         /* Then outside the loop we sort the array*/
         qsort(list, word_size, sizeof list[0], word_compare);
         /*Debugging*/
+        /*
         for (i = 0; i < word_size; i++) {
             normal_print("%d: %s\n", i, list[i]);
-        }
+        }*/
         /*We free each string*/
     }
     fclose(file);

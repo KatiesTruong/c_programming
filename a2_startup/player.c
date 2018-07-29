@@ -24,9 +24,11 @@
  **/
 struct player* new_players(int num_players, struct game* thegame,
                            enum input_result* status) {
-    /* We'll allow 6 players for now*/
-    long int random_col;
+    struct player* new;
+    /* We safely malloc the struct player before we allocate players to array */
+    new = safemalloc(sizeof(struct player));
     while (num_players == MAX_PLAYERS) {
+        return new;
     }
     return EXIT_SUCCESS;
 }
@@ -40,7 +42,11 @@ struct player* new_players(int num_players, struct game* thegame,
 enum input_result init_player(struct player* curplayer, int playernum,
                               enum color color, struct game* thegame) {
     char name[NAMELEN + EXTRACHARS];
-    normal_print("Enter player %d's name: ", playernum);
+    normal_print("How many players should play?");
+    fgets(playernum, 6, stdin);
+    strcpy(curplayer->thegame->num_players, playernum);
+    /* Error checking */
+    normal_print("Please enter player %d's name: ", playernum);
     fgets(name, NAMELEN + EXTRACHARS, stdin);
     strcpy(curplayer->name, name);
     return EXIT_SUCCESS;
