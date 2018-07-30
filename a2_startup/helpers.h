@@ -25,4 +25,5 @@
 /* publicly used functions */
 FILE* file_open(char* file);
 FILE* file_write(char* file);
+char* mystrdup(const char[]);
 #endif

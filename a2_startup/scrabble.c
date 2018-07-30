@@ -24,10 +24,11 @@ int main(int argc, char* argv[]) {
     struct word_list wordlist;
     struct tile tile;
     struct tile_list tilelist;
-    struct player* players;
+    struct game thegame;
+
     FILE *fp_read_dict, *fp_read_tile;
     int result_dict = 0, result_tile = 0;
-    long int randomise, count=0;
+    long int randomise, count = 0;
     char* rand_str = argv[3];
     char ch;
 
@@ -40,19 +41,19 @@ int main(int argc, char* argv[]) {
     wordlist_init(&wordlist);
     init_tilelist(&tilelist);
     /* validate command line arguments */
-    /* We place != since we process 3 files*/
-    /* if (argc != 3) {
-        error_print("Invalid arguments.\n");
-        return EXIT_FAILURE;
-    } else if (strlen(argv[1]) >= MAX_WORD_LEN) {
-        error_print("Dictionary words are not within limt.\n");
-        return EXIT_FAILURE;
-    }*/
+    /* We place < since we can process 3 to 4 files when adding custom seed*/
+    /*if (argc < 3) {
+       error_print("Invalid arguments.\n");
+       return EXIT_FAILURE;
+   } else if (strlen(argv[1]) >= MAX_WORD_LEN) {
+       error_print("Dictionary words are not within limt.\n");
+       return EXIT_FAILURE;
+   }*/
     /* opens the files for dictionary and tiles text */
-    fp_read_dict = file_open(argv[1]); /* argv[READER_DICT] = argv[1] */
-    fp_read_tile = file_open(argv[2]);  /* argv[READER_TILES] = argv[2] */
-    fseek(fp_read_dict, 0, SEEK_SET);
-    fseek(fp_read_tile, 0, SEEK_SET);
+    fp_read_dict = file_open("words.len5"); /* argv[READER_DICT] = argv[1] */
+    fp_read_tile = file_open("tiles.txt");  /* argv[READER_TILES] = argv[2] */
+    /*fseek(fp_read_dict, 0, SEEK_SET);
+    fseek(fp_read_tile, 0, SEEK_SET);*/
     /* when loading data we handle the errors, where -1 is returned a true value
      * for opening the file */
     if (result_dict < -1 && result_tile < -1) {
@@ -94,25 +95,26 @@ int main(int argc, char* argv[]) {
     }
 
     /* load the dictionary file, and after we load it we display
-    the number of words loaded. Note that while the system states 
+    the number of words loaded. Note that while the system states
     that it has listed the words of each dictionary file. We are in fact only
     loading up to 100 words for now */
-    result_dict = load_word_list(argv[1], &wordlist);
-    while((ch = fgetc(fp_read_dict)) != EOF) {
-        if(ch=='\n');
+    result_dict = load_word_list("words.len5", &wordlist);
+    while ((ch = fgetc(fp_read_dict)) != EOF) {
+        if (ch == '\n')
+            ;
         count++;
     }
     normal_print("%ld words have been loaded.\n", count);
     /*result_tile = load(&wordlist, fp_read_tile);*/
     fclose(fp_read_dict);
     fclose(fp_read_tile);
-    /* wordlist_add(&wordlist, );*/
     /* play the game :) */
     while (!quit) {
-        print_wordlist(&wordlist);
+        init_game(&thegame, &wordlist, "tiles.txt");
         add_tiles(&tilelist, tile);
         /* free memory */
         wordlist_free(&wordlist);
+        free_tiles(&tilelist);
         return EXIT_SUCCESS;
     }
     return EXIT_SUCCESS;

@@ -16,28 +16,44 @@
  *required to create the functions for this list.
  *****************************************************************************/
 FILE* tokenise_tokens(FILE* file) {
+    /* When tokenising with strtok we use strcpy from the mystrdup function to
+     * avoid modification errors when copying a string to the temporary buffer.
+     * Source code on mystrdup is acknowledged from the helpers.c file*/
+    struct tile_list* tilelist;
+    struct tile* new;
+    struct game* newgame;
     char buffer[BUFFER_SIZE];
     char* token;
-
+    char* cpy_token = mystrdup(buffer);
+    long int num_token;
+    char* endptr;
     /* Error checking*/
     if (file == NULL) {
         error_print("Unable to open %s file\n", file);
-        return FALSE;
+        exit(EXIT_FAILURE);
     } else {
         while (fgets(buffer, BUFFER_SIZE, file) != NULL) {
             token = strtok(buffer, DELIMS);
+            /*num_token = strtol(token, &endptr, 0);
+            new->score = num_token;
+            new->letter = num_token;
+            tilelist->num_tiles = num_token;*/
             while (token != NULL) {
                 /* Debugging */
-                /*normal_print("%s\n", token);*/
+                /* normal_print("%s\n", token);*/
                 token = strtok(NULL, DELIMS);
             }
         }
     }
+    free(cpy_token);
     fclose(file);
     return file;
 }
 
-/* Source code adapted from...*/
+/* Source code adapted from list.c for account file
+ * Author: Paul Miller
+ * Source: ~e70949/shared/prog_in_c/tutes/2018sp2week7/solution
+ * Date: 29th July 2018.*/
 
 BOOLEAN init_tilelist(struct tile_list* tilelist) {
     tilelist->tiles = (struct tile*)malloc(sizeof(struct tile) * 10);
@@ -74,4 +90,9 @@ BOOLEAN add_tiles(struct tile_list* tilelist, struct tile tile) {
     }
     tilelist->tiles[tilelist->num_tiles++] = tile;
     return EXIT_SUCCESS;
+}
+
+void free_tiles(struct tile_list* tilelist) {
+    assert(tilelist);
+    free(tilelist->tiles);
 }

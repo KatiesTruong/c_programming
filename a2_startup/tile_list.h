@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "assert.h"
 #include "helpers.h"
 #include "io.h"
 #include "shared.h"
@@ -56,5 +57,6 @@ struct tile_list {
 FILE* tokenise_tokens(FILE*);
 BOOLEAN init_tilelist(struct tile_list*);
 BOOLEAN add_tiles(struct tile_list*, struct tile);
+void free_tiles(struct tile_list*);
 #define DOUBLE(X) ((X) * (X))
 #endif

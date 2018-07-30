@@ -18,7 +18,7 @@
 
 #ifndef IO_H
 #define IO_H
-#define MAX_INT_LEN 2
+#define MAX_INT_LEN 3
 /**
  * the possible outcomes of a request for keyboard input
  **/
@@ -44,9 +44,11 @@ struct tile_list;
 /* public functions implemented for this module */
 void read_rest_of_line(void);
 
+BOOLEAN get_int(int *, const char *);
+
 int word_compare(const void *, const void *);
 
-int word_count(FILE*);
+int word_count(FILE *);
 
 BOOLEAN load_word_list(const char[], struct word_list *);
 

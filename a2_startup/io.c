@@ -38,15 +38,34 @@ void read_rest_of_line(void) {
 /* Source code adapted from getInteger-advanced
  * Author: Paul Miller
  * Source:
- * https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-advanced.c
+ * https://github.com/muaddib1971/c_examp/blob/master/examples/BasicIO/getInteger-basic.c
  * Date: 29th July 2018.*/
-BOOLEAN get_int(int* integer, const char* prompt, const int min,
-                const int max) {
-    BOOLEAN finished = FALSE;
+BOOLEAN get_int(int* integer, const char* prompt) {
     char input[MAX_INT_LEN + EXTRACHARS];
-    long long_result;
     int int_result = 0;
     char* end;
+
+    /* Provide a custom input*/
+    printf("%s", prompt);
+
+    /* We accept input and then remove any trailing new line */
+    fgets(input, MAX_INT_LEN + EXTRACHARS, stdin);
+    if (input[strlen(input) - 1] != '\n') {
+        read_rest_of_line();
+    } else {
+        input[strlen(input) - 1] = '\0';
+        int_result = (int)strtol(input, &end, 0);
+        if (*end != 0) {
+            error_print("Input was not numeric.\n");
+            return IR_RTM;
+        } else if (int_result > MAX_PLAYERS) {
+            error_print("Input is outside of 6 players.\n");
+            return IR_RTM;
+        } else {
+            return EXIT_SUCCESS;
+        }
+    }
+    *integer = int_result;
 }
 
 /* Compares the first and second word in the qsort function*/

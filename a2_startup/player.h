@@ -8,6 +8,7 @@
  *****************************************************************************/
 
 #include <string.h>
+#include <time.h>
 #include "board.h"
 #include "io.h"
 #include "rules.h"
@@ -19,7 +20,6 @@
 #define MAX_PLAYERS 6
 #define HANDSIZE 7
 #define NAMELEN 20
-#define EXTRACHARS 2
 
 struct game;
 

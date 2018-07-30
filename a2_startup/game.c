@@ -32,9 +32,20 @@
  * that value into the board module to allocate a 2-dimensional board.
  **/
 enum input_result init_game(struct game* thegame, struct word_list* dictionary,
-                            const char tile_file[])
-{
-        return IR_FAILURE;
+                            const char tile_file[]) {
+    struct player* players = malloc(sizeof(struct player));
+    struct game* curgame = malloc(sizeof(struct game));
+    char player_prompt[MAX_INT_LEN + EXTRACHARS];
+    char name[NAMELEN + EXTRACHARS];
+    char* player_num;
+    int total_players;
+
+    /* We remove the first null terminator since normal print below
+     does not have a new line. */
+    player_prompt[strlen(player_prompt) - 1] = '\n';
+    normal_print("How many players are playing? ");
+    get_int(&total_players, player_prompt);
+    return EXIT_SUCCESS;
 }
 
 /**
@@ -46,19 +57,16 @@ enum input_result init_game(struct game* thegame, struct word_list* dictionary,
  * of the first turn are different you will also need to keep track of whether
  * it is the first turn or not.
  **/
-void play_game(struct word_list* dictionary, const char tilefile[])
-{
-        struct game thegame;
-        /* initialise the game */
-        /* iterate over the players allowing each to have their turn until
-         * someone quits */
-        /* finalise the scores and print them */
-        /* free memory for the game */
+void play_game(struct word_list* dictionary, const char tilefile[]) {
+    struct game thegame;
+    /* initialise the game */
+    /* iterate over the players allowing each to have their turn until
+     * someone quits */
+    /* finalise the scores and print them */
+    /* free memory for the game */
 }
 
 /**
  * Once the game is finished we need to free all memory allocated for the game
  **/
-void free_game(struct game* thegame)
-{
-}
+void free_game(struct game* thegame) {}

@@ -25,15 +25,46 @@
 struct player* new_players(int num_players, struct game* thegame,
                            enum input_result* status) {
     struct player* new;
+    int player_color;
+    int cur_player;
+    int count;
     /* We safely malloc the struct player before we allocate players to array */
     new = safemalloc(sizeof(struct player));
+    /* We extract random seed */
+    srand(time(NULL));
+    player_color = rand() % MAX_PLAYERS + 1;
     while (num_players == MAX_PLAYERS) {
+        new->thegame = NULL;
+        new->score = 0;
+        /* Loop through up to 6 players and increment the colors
+          while comparing for each player for their colors.*/
+        for (count = 0; count < MAX_PLAYERS; count++) {
+            player_color++;
+            if (player_color == C_RED) {
+                player_color = C_RED;
+            } else if (player_color == C_GREEN) {
+                player_color = C_GREEN;
+            } else if (player_color == C_YELLOW) {
+                player_color = C_YELLOW;
+            } else if (player_color == C_BLUE) {
+                player_color = C_BLUE;
+            } else if (player_color == C_MAGENTA) {
+                player_color = C_MAGENTA;
+            } else if (player_color == C_CYAN) {
+                player_color = C_CYAN;
+            }
+        }
+        cur_player = rand() % MAX_PLAYERS;
+        thegame->players = &thegame->players[cur_player];
+        cur_player = (cur_player + 1 % MAX_PLAYERS);
+
         return new;
     }
     return EXIT_SUCCESS;
 }
 
-/**
+/**4
+
  * Initialise the data for a player. this includes prompting for the name
  * of a player, and filling the starting hand for the using from the tile
  * deck, as well as setting the color and the game pointer and set the score to
@@ -42,9 +73,6 @@ struct player* new_players(int num_players, struct game* thegame,
 enum input_result init_player(struct player* curplayer, int playernum,
                               enum color color, struct game* thegame) {
     char name[NAMELEN + EXTRACHARS];
-    normal_print("How many players should play?");
-    fgets(playernum, 6, stdin);
-    strcpy(curplayer->thegame->num_players, playernum);
     /* Error checking */
     normal_print("Please enter player %d's name: ", playernum);
     fgets(name, NAMELEN + EXTRACHARS, stdin);
